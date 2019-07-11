@@ -21,7 +21,7 @@ function displaysales(){
                     }
                 }
             }
-            req.open("GET", "https://api.jsonbin.io/b/5d26e2d10e09805769fe7c14", true);
+            req.open("GET", "https://api.jsonbin.io/b/5d26e966f0c0927b3eb4c8f3", true);
             req.setRequestHeader("secret-key","$2a$10$1ctkNrItxvgZLpXGWT936uQt376TVgRrfv1lpu0/mdgDfHQhN3pa2");
             req.send();
    });

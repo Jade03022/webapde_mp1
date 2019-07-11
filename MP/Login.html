@@ -9,6 +9,17 @@
                 $("#login").click(function(){
                     valid()
                 })
+                
+                $("#password").bind("enterKey",function(e){
+                   valid()
+                });
+                
+                $("#password").keyup(function(e){
+                    if(e.keyCode == 13)
+                    {
+                        $(this).trigger("enterKey");
+                    }
+                });
             })
             
             function valid()

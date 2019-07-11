@@ -1,5 +1,6 @@
 var info;
 var info2;
+var info3;
 
 function displaychart(dateinput)
 {
@@ -16,7 +17,7 @@ function displaychart(dateinput)
          }
     }
 
-     req.open("GET", "https://api.jsonbin.io/b/5d26e2d10e09805769fe7c14", true);
+     req.open("GET", "https://api.jsonbin.io/b/5d26e966f0c0927b3eb4c8f3", true);
      req.setRequestHeader("secret-key","$2a$10$1ctkNrItxvgZLpXGWT936uQt376TVgRrfv1lpu0/mdgDfHQhN3pa2");
      req.send();
 
@@ -34,6 +35,20 @@ function displaychart(dateinput)
 //            "seahorse": 0,
 //            "gray whale": 0
 //        };
+        
+        var weekdata = new google.visualization.DataTable();
+          weekdata.addColumn('string', 'Month');
+          weekdata.addColumn('number', 'Sales');
+        
+        info3 = {
+            "0": 0,
+            "1": 0,
+            "2": 0,
+            "3": 0,
+            "4": 0,
+            "5": 0,
+            "6": 0
+        }
         
        var linedata = new google.visualization.DataTable();
           linedata.addColumn('number', 'X');
@@ -80,11 +95,37 @@ function displaychart(dateinput)
               
 //              info2[text.sales[key].species]++;
           }
+            
+            info3[datee.getDay()]++;
         }
         
       for(var ctr = 0; ctr < 24; ctr++){
           linedata.addRows([
             [ctr, info[ctr]],
+          ]);
+      }
+        
+        for(var ctr3 = 0; ctr3 < 7; ctr3++){
+            var dayString;
+            
+            if(ctr3 == 0)
+                dayString = "Sunday"
+            else if(ctr3 == 1)
+                dayString = "Monday"
+            else if(ctr3 == 2)
+                dayString = "Tuesday"
+            else if(ctr3 == 3)
+                dayString = "Wednesday"
+            else if(ctr3 == 4)
+                dayString = "Thursday"
+            else if(ctr3 == 5)
+                dayString = "Friday"
+            else if(ctr3 == 6)
+                dayString = "Saturday"
+                
+            
+          weekdata.addRows([
+            [dayString, info3[ctr3]],
           ]);
       }
         
@@ -146,20 +187,31 @@ function displaychart(dateinput)
       ]);      
         
         
-      var pieoptions = {'title':'Species Sales', 'width':600, 'height':400};
-      var baroptions = {'title':'Burger Sales', 'width':600, 'height':400};
-      var columnoptions = {'title':'Krusty Combo Sales', 'width':600, 'height':400};
-      var column1options = {'title':'Krusty Deluxe Sales', 'width':600, 'height':400};
-      var column2options = {'title':'Krabby Pattie Sales', 'width':600, 'height':400};
+      var pieoptions = {'title':'Species Sales', 'width':900, 'height':400};
+      var baroptions = {'title':'Burger Sales', 'width':900, 'height':400};
+      var columnoptions = {'title':'Krusty Combo Sales', 'width':900, 'height':400};
+      var column1options = {'title':'Krusty Deluxe Sales', 'width':900, 'height':400};
+      var column2options = {'title':'Krabby Pattie Sales', 'width':900, 'height':400};
       var lineoptions = {
           hAxis: {
-              title: 'hours per day'
+              title: 'Hours per Day'
           },
           vAxis: {
               title: 'Sales'
           },
           
-           width: 600, height: 400
+           width: 900, height: 400
+      };  
+        
+        var weekoptions = {
+          hAxis: {
+              title: 'Day of the Week'
+          },
+          vAxis: {
+              title: 'All Time Sales'
+          },
+          
+           width: 900, height: 400
       }; 
         
 //      var speciesoptions = {
@@ -177,6 +229,8 @@ function displaychart(dateinput)
       var column1chart = new google.visualization.ColumnChart(document.getElementById('column1chart'));
       var column2chart = new google.visualization.ColumnChart(document.getElementById('column2chart')); 
       var linechart = new google.visualization.LineChart(document.getElementById('linechart')); 
+      var weekchart = new google.visualization.LineChart(document.getElementById('weekchart')); 
+        
 //      var specieschart = new google.visualization.LineChart(document.getElementById('speciessales')); 
           
         
@@ -186,6 +240,7 @@ function displaychart(dateinput)
       column1chart.draw(column1data, column1options);
       column2chart.draw(column2data, column2options);
       linechart.draw(linedata, lineoptions);
+      weekchart.draw(weekdata, weekoptions);
 //      specieschart.draw(speciesdata, speciesoptions);
     }
 }

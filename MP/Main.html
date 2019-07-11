@@ -37,6 +37,9 @@
                 $("#columnchart").show()
                 $("#column1chart").show()
                 $("#column2chart").show()
+                $("#linechart").show()
+                $("#weekchart").show()
+                
                 
                 document.getElementById("file_button").addEventListener("change", handleFileSelect, false);
                 
@@ -66,9 +69,7 @@
                         reader.readAsText(f);
                     }
                     
-                    if(success){
-                        alert("Upload successful!")
-                                    
+                    if(success){    
                         cleardiv()
 
                         displaysales()
@@ -83,6 +84,10 @@
                         $("#columnchart").show()
                         $("#column1chart").show()
                         $("#column2chart").show()
+                        $("#linechart").show()
+                        $("#weekchart").show()
+                        
+                       alert("Upload successful!")
                     }
                 }
                 
@@ -284,7 +289,7 @@
                       }
                     };
 
-                    req.open("GET", "https://api.jsonbin.io/b/5d26e2d10e09805769fe7c14", true);
+                    req.open("GET", "https://api.jsonbin.io/b/5d26e966f0c0927b3eb4c8f3", true);
                     req.setRequestHeader("secret-key","$2a$10$1ctkNrItxvgZLpXGWT936uQt376TVgRrfv1lpu0/mdgDfHQhN3pa2");
                     req.send();
 
@@ -297,7 +302,7 @@
                           }
                         };
 
-                        req1.open("PUT", "https://api.jsonbin.io/b/5d26e2d10e09805769fe7c14", true);
+                        req1.open("PUT", "https://api.jsonbin.io/b/5d26e966f0c0927b3eb4c8f3", true);
                         req1.setRequestHeader("Content-type", "application/json");
                         req1.setRequestHeader("versioning","false");
                         req1.setRequestHeader("secret-key","$2a$10$1ctkNrItxvgZLpXGWT936uQt376TVgRrfv1lpu0/mdgDfHQhN3pa2");
@@ -334,6 +339,8 @@
                     $("#columnchart").show()
                     $("#column1chart").show()
                     $("#column2chart").show()
+                    $("#linechart").show()
+                    $("#weekchart").show()
                 })
                 
                 $("#tables").click(function(){
@@ -355,6 +362,8 @@
                     $("#columnchart").show()
                     $("#column1chart").show()
                     $("#column2chart").show()
+                    $("#linechart").show()
+                    $("#weekchart").show()
                 }) 
                     
             })
@@ -367,6 +376,8 @@
                 $("#columnchart").hide()
                 $("#column1chart").hide()
                 $("#column2chart").hide()
+                $("#linechart").hide()
+                $("#weekchart").hide()
             }
         </script>
     </head>
@@ -383,7 +394,7 @@
                    <a href = "Login.html" id = "a_logout">LOGOUT</a>
                </div>
                <div class="nav" id="specific_date">
-                   <input type = "text" id = "specific_date_input" placeholder="Input specific date for chart." style = "margin-left: 780px;">
+                   <input type = "text" id = "specific_date_input" placeholder="i.e. '2019-04-08' Press any tab after." style = "margin-left: 730px; width: 220px;">
                </div>
            </div>
              
@@ -409,6 +420,7 @@
                 <div id="column1chart" hidden class="div_center"></div><br><br>
                 <div id="column2chart" hidden class="div_center"></div><br><br>
                 <div id="linechart" hidden class="div_center"></div><br><br>
+                <div id="weekchart" hidden class="div_center"></div><br><br>
              </div>
         </div>
     </body>

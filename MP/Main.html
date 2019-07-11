@@ -1,0 +1,415 @@
+<html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+        <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+        <script src="table.js"></script>
+        <script src="charts.js"></script>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script src="Main.js"></script>
+        <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"
+            rel="stylesheet" type="text/css"> 
+        <link href="Main.css" rel="stylesheet">
+        
+        <script>
+
+            let data;
+            let totalkrustycombo, totalkrustydeluxe, totalkrabbypattie, totalturtle, totalsalmon, totalhorse, totalcoral, totalclam, totalwhale, totallion, krustycomboturtle, krustycombosalmon, krustycombohorse, krustycombocoral, krustycomboclam, krustycombowhale, krustycombolion, krustydeluxeturtle, krustydeluxesalmon, krustydeluxehorse, krustydeluxecoral, krustydeluxeclam, krustydeluxewhale, krustydeluxelion, krabbypattieturtle, krabbypattiesalmon, krabbypattiehorse, krabbypattiecoral, krabbypattieclam, krabbypattiewhale, krabbypattielion;
+            let oldData = []
+            
+            $(document).ready(function(){
+                
+                $(".btn").bind("click", function(){
+                    $("#file_button").click();
+                })
+                
+                cleardiv()
+                    
+                displaysales()
+
+                $("#table_div").show()
+                $("#table").show()
+
+                displaychart($("#specific_date_input").val())
+
+                $("#piechart").show()
+                $("#barchart").show()
+                $("#columnchart").show()
+                $("#column1chart").show()
+                $("#column2chart").show()
+                
+                document.getElementById("file_button").addEventListener("change", handleFileSelect, false);
+                
+                function handleFileSelect(evt) {
+                    let files = evt.target.files;
+                    let success = true;
+                    
+                    store_old_data();
+                    
+                    clear_data();
+                    
+                    for (var i = 0, f; f = files[i]; i++) {
+                        let reader = new FileReader();
+                        
+                        reader.onload = (function (theFile) {
+                            return function (e) {
+                                try {
+                                    data = JSON.parse(e.target.result);
+                                    read_data(data);
+                                } catch (ex) {
+                                    retrieve_old_data();
+                                    success = false;
+                                    alert("Cannot parse this file or incorrect JSON format.")
+                                }
+                            }
+                        })(f);
+                        reader.readAsText(f);
+                    }
+                    
+                    if(success){
+                        alert("Upload successful!")
+                                    
+                        cleardiv()
+
+                        displaysales()
+
+                        $("#table_div").show()
+                        $("#table").show()
+
+                        displaychart($("#specific_date_input").val())
+
+                        $("#piechart").show()
+                        $("#barchart").show()
+                        $("#columnchart").show()
+                        $("#column1chart").show()
+                        $("#column2chart").show()
+                    }
+                }
+                
+                function read_data(data){
+                    for(var key in data.sales){
+                        if(data.sales[key].burger == "Krusty Combo"){
+                            if(data.sales[key].species == "leatherback turtle")
+                            {
+                                totalturtle++;
+                                krustycomboturtle++;
+                            }
+                            else if(data.sales[key].species == "salmon")
+                            {
+                                totalsalmon++;
+                                krustycombosalmon++;
+                                
+                            }
+                            else if(data.sales[key].species == "seahorse")
+                            {
+                                totalhorse++;
+                                krustycombohorse++;
+                            }
+                            else if(data.sales[key].species == "coral")
+                            {
+                                totalcoral++;
+                                krustycombocoral++;    
+                            }
+                            else if(data.sales[key].species == "giant clam")
+                            {
+                                totalclam++;
+                                krustycomboclam++;
+                            }
+                            else if(data.sales[key].species == "gray whale")
+                            {
+                                totalwhale++;
+                                krustycombowhale++;
+                            }
+                            else if(data.sales[key].species == "sea lion")
+                            {
+                                totallion++;
+                                krustycombolion++;
+                            }
+                            
+                            totalkrustycombo++;
+                        }
+                        
+                        else if(data.sales[key].burger == "Krusty Deluxe"){
+                            if(data.sales[key].species == "leatherback turtle")
+                            {
+                                totalturtle++;
+                                krustydeluxeturtle++;
+                            }
+                            else if(data.sales[key].species == "salmon")
+                            {
+                                totalsalmon++;
+                                krustydeluxesalmon++;
+                                
+                            }
+                            else if(data.sales[key].species == "seahorse")
+                            {
+                                totalhorse++;
+                                krustydeluxehorse++;
+                            }
+                            else if(data.sales[key].species == "coral")
+                            {
+                                totalcoral++;
+                                krustydeluxecoral++;    
+                            }
+                            else if(data.sales[key].species == "giant clam")
+                            {
+                                totalclam++;
+                                krustydeluxeclam++;
+                            }
+                            else if(data.sales[key].species == "gray whale")
+                            {
+                                totalwhale++;
+                                krustydeluxewhale++;
+                            }
+                            else if(data.sales[key].species == "sea lion")
+                            {
+                                totallion++;
+                                krustydeluxelion++;
+                            }
+                            
+                            totalkrustydeluxe++;
+                        }
+                        
+                        else if(data.sales[key].burger == "Krabby Pattie"){
+                            if(data.sales[key].species == "leatherback turtle")
+                            {
+                                totalturtle++;
+                                krabbypattieturtle++;
+                            }
+                            else if(data.sales[key].species == "salmon")
+                            {
+                                totalsalmon++;
+                                krabbypattiesalmon++;
+                                
+                            }
+                            else if(data.sales[key].species == "seahorse")
+                            {
+                                totalhorse++;
+                                krabbypattiehorse++;
+                            }
+                            else if(data.sales[key].species == "coral")
+                            {
+                                totalcoral++;
+                                krabbypattiecoral++;    
+                            }
+                            else if(data.sales[key].species == "giant clam")
+                            {
+                                totalclam++;
+                                krabbypattieclam++;
+                            }
+                            else if(data.sales[key].species == "gray whale")
+                            {
+                                totalwhale++;
+                                krabbypattiewhale++;
+                            }
+                            else if(data.sales[key].species == "sea lion")
+                            {
+                                totallion++;
+                                krabbypattielion++;
+                            }
+                            
+                            totalkrabbypattie++;
+                        }
+                    }
+                    
+                    assigndata(data)
+                }
+                
+                function assigndata(data){
+                    let req = new XMLHttpRequest();
+
+                    req.onreadystatechange = () => {
+                      if (req.readyState == XMLHttpRequest.DONE) {
+                        var ourdata = JSON.parse(req.responseText);   
+                        
+                        for(var key in data.sales){
+                            if(data.sales.hasOwnProperty(key)){
+                                ourdata.sales[key] = {
+                                    "datetime": data.sales[key].datetime,
+                                    "burger": data.sales[key].burger,
+                                    "species": data.sales[key].species
+                                }
+                            }
+                        }  
+                          
+                        Object.assign(ourdata, {
+                            "burger_sales": {
+                                "Krusty Combo": (parseInt(ourdata.burger_sales["Krusty Combo"],10)+totalkrustycombo),
+                                "Krusty Deluxe": (parseInt(ourdata.burger_sales["Krusty Deluxe"],10)+totalkrustydeluxe),
+                                "Krabby Pattie": (parseInt(ourdata.burger_sales["Krabby Pattie"],10)+totalkrabbypattie)
+                            },
+
+                            "species_sales": {
+                                "leatherback turtle": (parseInt(ourdata.species_sales["leatherback turtle"],10)+totalturtle),
+                                "salmon": (parseInt(ourdata.species_sales["salmon"],10)+totalsalmon),
+                                "seahorse": (parseInt(ourdata.species_sales["seahorse"],10)+totalhorse),
+                                "coral": (parseInt(ourdata.species_sales["coral"],10)+totalcoral),
+                                "giant clam": (parseInt(ourdata.species_sales["giant clam"],10)+totalclam),
+                                "gray whale": (parseInt(ourdata.species_sales["gray whale"],10)+totalwhale),
+                                "sea lion": (parseInt(ourdata.species_sales["sea lion"],10)+totallion)
+                            },
+                        });
+                          
+                        Object.assign(ourdata.burger_by_species, {
+                            "Krusty Combo": {
+                              "leatherback turtle": (parseInt(ourdata.burger_by_species["Krusty Combo"]["leatherback turtle"],10)+krustycomboturtle),
+                              "salmon": (parseInt(ourdata.burger_by_species["Krusty Combo"]["salmon"],10)+krustycombosalmon),
+                              "seahorse": (parseInt(ourdata.burger_by_species["Krusty Combo"]["seahorse"],10)+krustycombohorse),
+                              "coral": (parseInt(ourdata.burger_by_species["Krusty Combo"]["coral"],10)+krustycombocoral),
+                              "giant clam": (parseInt(ourdata.burger_by_species["Krusty Combo"]["giant clam"],10)+krustycomboclam),
+                              "gray whale": (parseInt(ourdata.burger_by_species["Krusty Combo"]["gray whale"],10)+krustycombowhale),
+                              "sea lion": (parseInt(ourdata.burger_by_species["Krusty Combo"]["sea lion"],10)+krustycombolion)
+                            },
+                            "Krusty Deluxe": {
+                              "leatherback turtle": (parseInt(ourdata.burger_by_species["Krusty Deluxe"]["leatherback turtle"],10)+krustydeluxeturtle),
+                              "salmon": (parseInt(ourdata.burger_by_species["Krusty Deluxe"]["salmon"],10)+krustydeluxesalmon),
+                              "seahorse": (parseInt(ourdata.burger_by_species["Krusty Deluxe"]["seahorse"],10)+krustydeluxehorse),
+                              "coral": (parseInt(ourdata.burger_by_species["Krusty Deluxe"]["coral"],10)+krustydeluxecoral),
+                              "giant clam": (parseInt(ourdata.burger_by_species["Krusty Deluxe"]["giant clam"],10)+krustydeluxeclam),
+                              "gray whale": (parseInt(ourdata.burger_by_species["Krusty Deluxe"]["gray whale"],10)+krustydeluxewhale),
+                              "sea lion": (parseInt(ourdata.burger_by_species["Krusty Deluxe"]["sea lion"],10)+krustydeluxelion)
+                            },
+                            "Krabby Pattie": {
+                              "leatherback turtle": (parseInt(ourdata.burger_by_species["Krabby Pattie"]["leatherback turtle"],10)+krabbypattieturtle),
+                              "salmon": (parseInt(ourdata.burger_by_species["Krabby Pattie"]["salmon"],10)+krabbypattiesalmon),
+                              "seahorse": (parseInt(ourdata.burger_by_species["Krabby Pattie"]["seahorse"],10)+krabbypattiehorse),
+                              "coral": (parseInt(ourdata.burger_by_species["Krabby Pattie"]["coral"],10)+krabbypattiecoral),
+                              "giant clam": (parseInt(ourdata.burger_by_species["Krabby Pattie"]["giant clam"],10)+krabbypattieclam),
+                              "gray whale": (parseInt(ourdata.burger_by_species["Krabby Pattie"]["gray whale"],10)+krabbypattiewhale),
+                              "sea lion": (parseInt(ourdata.burger_by_species["Krabby Pattie"]["sea lion"],10)+krabbypattielion)
+                            }
+                        });
+                          
+                        putdata(ourdata); 
+                      }
+                    };
+
+                    req.open("GET", "https://api.jsonbin.io/b/5d26e2d10e09805769fe7c14", true);
+                    req.setRequestHeader("secret-key","$2a$10$1ctkNrItxvgZLpXGWT936uQt376TVgRrfv1lpu0/mdgDfHQhN3pa2");
+                    req.send();
+
+                    function putdata(dataobj){
+                        let req1 = new XMLHttpRequest();
+
+                        req1.onreadystatechange = () => {
+                          if (req1.readyState == XMLHttpRequest.DONE) {
+                            console.log(dataobj);
+                          }
+                        };
+
+                        req1.open("PUT", "https://api.jsonbin.io/b/5d26e2d10e09805769fe7c14", true);
+                        req1.setRequestHeader("Content-type", "application/json");
+                        req1.setRequestHeader("versioning","false");
+                        req1.setRequestHeader("secret-key","$2a$10$1ctkNrItxvgZLpXGWT936uQt376TVgRrfv1lpu0/mdgDfHQhN3pa2");
+                        req1.send(JSON.stringify(dataobj)); 
+                    }
+                }
+                
+                function clear_data(){
+                    totalkrustycombo = 0; totalkrustydeluxe = 0; totalkrabbypattie = 0; totalturtle = 0; totalsalmon = 0; totalhorse = 0; totalcoral = 0; totalclam = 0; totalwhale = 0; totallion = 0; krustycomboturtle = 0; krustycombosalmon = 0; krustycombohorse = 0; krustycombocoral = 0; krustycomboclam = 0; krustycombowhale = 0; krustycombolion = 0; krustydeluxeturtle = 0; krustydeluxesalmon = 0; krustydeluxehorse = 0; krustydeluxecoral = 0; krustydeluxeclam = 0; krustydeluxewhale = 0; krustydeluxelion = 0; krabbypattieturtle = 0; krabbypattiesalmon = 0; krabbypattiehorse = 0; krabbypattiecoral = 0; krabbypattieclam = 0; krabbypattiewhale = 0; krabbypattielion = 0;
+                }
+                
+                function store_old_data(){
+                    oldData = []
+                    
+                    oldData.push(totalkrustycombo, totalkrustydeluxe, totalkrabbypattie, totalturtle, totalsalmon, totalhorse, totalcoral, totalclam, totalwhale, totallion, krustycomboturtle, krustycombosalmon, krustycombohorse, krustycombocoral, krustycomboclam, krustycombowhale, krustycombolion, krustydeluxeturtle, krustydeluxesalmon, krustydeluxehorse, krustydeluxecoral, krustydeluxeclam, krustydeluxewhale, krustydeluxelion, krabbypattieturtle, krabbypattiesalmon, krabbypattiehorse, krabbypattiecoral, krabbypattieclam, krabbypattiewhale, krabbypattielion);
+                }
+                
+                function retrieve_old_data(){
+                    totalkrustycombo = oldData[0]; totalkrustydeluxe = oldData[1]; totalkrabbypattie = oldData[2]; totalturtle = oldData[3]; totalsalmon = oldData[4]; totalhorse = oldData[5]; totalcoral = oldData[6]; totalclam = oldData[7]; totalwhale = oldData[8]; totallion = oldData[9]; krustycomboturtle = oldData[10]; krustycombosalmon = oldData[11]; krustycombohorse = oldData[12]; krustycombocoral = oldData[13]; krustycomboclam = oldData[14]; krustycombowhale = oldData[15]; krustycombolion = oldData[16]; krustydeluxeturtle = oldData[17]; krustydeluxesalmon = oldData[18]; krustydeluxehorse = oldData[19]; krustydeluxecoral = oldData[20]; krustydeluxeclam = oldData[21]; krustydeluxewhale = oldData[22]; krustydeluxelion = oldData[23]; krabbypattieturtle = oldData[24]; krabbypattiesalmon = oldData[25]; krabbypattiehorse = oldData[26]; krabbypattiecoral = oldData[27]; krabbypattieclam = oldData[28]; krabbypattiewhale = oldData[29]; krabbypattielion = oldData[30];
+                }
+                
+                $("#home").click(function(){
+                    cleardiv()
+                    
+                    displaysales()
+                    
+                    $("#table_div").show()
+                    $("#table").show()
+                    
+                    displaychart($("#specific_date_input").val())
+                    
+                    $("#piechart").show()
+                    $("#barchart").show()
+                    $("#columnchart").show()
+                    $("#column1chart").show()
+                    $("#column2chart").show()
+                })
+                
+                $("#tables").click(function(){
+                    cleardiv()
+                    
+                    displaysales()
+                    
+                    $("#table_div").show()
+                    $("#table").show()
+                })
+                
+                $("#charts").click(function(){
+                    cleardiv()
+                    
+                    displaychart($("#specific_date_input").val())
+                    
+                    $("#piechart").show()
+                    $("#barchart").show()
+                    $("#columnchart").show()
+                    $("#column1chart").show()
+                    $("#column2chart").show()
+                }) 
+                    
+            })
+            
+            function cleardiv(){
+                $("#table_div").hide()
+                $("#table").hide()
+                $("#piechart").hide()
+                $("#barchart").hide()
+                $("#columnchart").hide()
+                $("#column1chart").hide()
+                $("#column2chart").hide()
+            }
+        </script>
+    </head>
+    <body>
+         <div class="background">
+           <div class="transbox1">
+               <div class="nav" id="home">HOME</div>
+               <div class="nav" id="tables">TABLES</div>
+               <div class="nav" id="charts">CHARTS</div>
+               <div class="nav btn" id="upload">UPLOAD
+                   <input type = "file" id = "file_button" style = "opacity: 0.0; top: 0; left: 0; bottom: 0; right: 0; width: 110px; height: 20px;">
+               </div>
+               <div class="nav" id="logout">
+                   <a href = "Login.html" id = "a_logout">LOGOUT</a>
+               </div>
+               <div class="nav" id="specific_date">
+                   <input type = "text" id = "specific_date_input" placeholder="Input specific date for chart." style = "margin-left: 780px;">
+               </div>
+           </div>
+             
+            <div class="transbox2" id="main_div">
+                <div id="table_div" hidden style="width:90%" class="div_center">
+                    
+                    <table id="table" style="width:100%" hidden>
+                        <thead>
+                            <tr>
+                                <th>Transcription</th>
+                                <th>Date and Time</th>
+                                <th>Burger</th>
+                                <th>Species</th>
+                            </tr>
+                        </thead>
+                    </table>
+                    
+                </div>
+                
+                <div id="piechart" hidden class="div_center"></div><br><br>
+                <div id="barchart" hidden class="div_center"></div><br><br>
+                <div id="columnchart" hidden class="div_center"></div><br><br>
+                <div id="column1chart" hidden class="div_center"></div><br><br>
+                <div id="column2chart" hidden class="div_center"></div><br><br>
+                <div id="linechart" hidden class="div_center"></div><br><br>
+             </div>
+        </div>
+    </body>
+</html>

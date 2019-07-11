@@ -1,0 +1,85 @@
+<html>
+    <head>
+        <link href="Login.css" rel="stylesheet">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+        
+        <script>
+            $(document).ready(function(){
+                $("#login").click(function(){
+                    valid()
+                })
+            })
+            
+            function valid()
+            {
+                var users = 
+                [{
+                  id: 1,
+                  username: 'admin',
+                  password: 'p@ssword',
+                  type: 'admin'
+                }];
+
+                var usern = document.getElementById("username").value;
+                var pass = document.getElementById("password").value;
+                var logged = false;
+                var blank = false;
+                
+                for (var index in users) {
+                  
+                  var user = users[index];
+
+                  
+                  if (usern == user.username && pass == user.password)
+                    logged = true;
+                }
+                
+                if(usern == "" && pass == "")
+                    blank = true;
+
+                if(logged){
+                    window.location.href = "Main.html";
+                }
+                
+                else{
+                    if(!blank){
+                        alert("Invalid credentials!");
+                        $("#username").val("");
+                        $("#password").val("");
+                    }
+                    
+                    else{
+                        alert("Username and password fields are empty.");
+                    }
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <div class="background">
+            <div class="transbox">
+                <div>
+                    <div class="logo">
+                        <img src="KrustyKrabBanner.png"/>
+                    </div>
+                    <form>
+                        <div class="login">
+                            <br>
+                            Username: <input type=text placeholder="Username" id="username"><br>
+                            Password: <input type=password placeholder="Password" id="password"><br>
+                            <br>
+                            <div class="button" id = "login">
+                                <img src="loginButton.png" width=270px height=100px id="login"/>
+                            </div>
+                        </div>
+                        <br>
+                            
+                    </form>
+                </div> 
+            </div>
+        </div>
+        
+        
+    </body>
+</html>

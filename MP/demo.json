@@ -1,0 +1,54 @@
+{
+  "sales": {
+    "hQAc79saks": {
+      "datetime": "2019-04-09 13:18:49",
+      "burger": "Krusty Combo",
+      "species": "giant clam"
+    },
+    "75RIq22wdj": {
+      "datetime": "2019-04-09 13:20:45",
+      "burger": "Krabby Pattie",
+      "species": "salmon"
+    },
+    "04Pva8dwoi": {
+      "datetime": "2019-04-09 13:22:44",
+      "burger": "Krabby Pattie",
+      "species": "salmon"
+    },
+    "201rfghwjI": {
+      "datetime": "2019-04-09 13:24:06",
+      "burger": "Krabby Pattie",
+      "species": "coral"
+    },
+    "UAnje38WxU": {
+      "datetime": "2019-04-09 13:26:45",
+      "burger": "Krabby Pattie",
+      "species": "coral"
+    },
+    "nPD3S2BfpZ": {
+      "datetime": "2019-04-09 13:27:46",
+      "burger": "Krusty Deluxe",
+      "species": "sea lion"
+    },
+    "VL1832qUXN": {
+      "datetime": "2019-04-09 13:29:51",
+      "burger": "Krabby Pattie",
+      "species": "seahorse"
+    },
+    "z6H1BoP4Vu": {
+      "datetime": "2019-04-09 13:31:14",
+      "burger": "Krabby Pattie",
+      "species": "sea lion"
+    },
+    "aCcKwdg3Wi": {
+      "datetime": "2019-04-09 13:32:59",
+      "burger": "Krusty Deluxe",
+      "species": "salmon"
+    },
+    "GhMwC148kr": {
+      "datetime": "2019-04-09 13:35:29",
+      "burger": "Krusty Deluxe",
+      "species": "gray whale"
+    }
+  }
+}

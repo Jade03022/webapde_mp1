@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+        <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+        <script src="table.js"></script>
+        <script src="charts.js"></script>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        
+    </head>
+<body>
+
+<h1>My Web Page</h1>
+
+<div id="filer">
+    <input type="file" id="files">
+    
+</div>
+
+<script>
+var json;
+
+function handleFileSelect(evt) {
+	var files = evt.target.files; // FileList object
+
+	// files is a FileList of File objects. List some properties.
+
+}
+
+document.getElementById('files').addEventListener('change', handleFileSelect, false);
+
+function handleFileSelect(evt) {
+	var files = evt.target.files; // FileList object
+
+	// files is a FileList of File objects. List some properties.
+	for (var i = 0, f; f = files[i]; i++) {
+		var reader = new FileReader();
+
+		// Closure to capture the file information.
+		reader.onload = (function (theFile) {
+			return function (e) {
+				console.log('e readAsText = ', e);
+				console.log('e readAsText target = ', e.target);
+				try {
+					json = JSON.parse(e.target.result);
+					
+				} catch (ex) {
+					alert(ex);
+				}
+			}
+		})(f);
+		reader.readAsText(f);
+	}
+
+}
+
+document.getElementById('files').addEventListener('change', handleFileSelect, false);
+     
+
+</script>
+
+</body>
+</html>

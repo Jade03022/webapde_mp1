@@ -1,0 +1,213 @@
+<html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+        <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+        <script src="table.js"></script>
+        <script src="charts.js"></script>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"
+            rel="stylesheet" type="text/css"> 
+        
+        <style>
+            div#div3{
+                width: 50%;
+                margin-left: 200px;
+            }
+        </style>
+        <!--
+        <style>
+            table#example {
+              font: 90%/1.45em "Helvetica Neue", HelveticaNeue, Verdana, Arial, Helvetica, sans-serif;
+              margin: 0;
+              padding: 0;
+              color: #333;
+              background-color: #fff;
+            }
+            .dataTables_wrapper .myfilter .dataTables_filter{float:left}
+            .dataTables_wrapper .mylength .dataTables_length{float:left}
+        </style>
+        -->
+    </head>
+    <body>
+        <!--
+        <form>
+            <input type="text" name="username" placeholder="Username" id="username">
+            <input type="password" name="password" placeholder="Password" id="password">
+		    <input type="button" name="submit" value="Login" onclick="check()">
+        </form>
+        -->
+        
+        
+        <script>  
+
+             displaychart();
+//            let req = new XMLHttpRequest();
+//
+//            req.onreadystatechange = () => {
+//              if (req.readyState == XMLHttpRequest.DONE) {
+//                var text = JSON.parse(req.responseText); 
+//                  
+//                 Object.assign(text, {
+//                    "burger_sales": {
+//                    "Krusty Combo": 230,
+//                    "Krusty Deluxe": 369,
+//                    "Krabby Pattie": 901
+//                  },
+//                  "species_sales": {
+//                    "leatherback turtle": 155,
+//                    "salmon": 259,
+//                    "seahorse": 368,
+//                    "coral": 33,
+//                    "giant clam": 312,
+//                    "gray whale": 158,
+//                    "sea lion": 215
+//                  },
+//                });
+//
+//                Object.assign(text.burger_by_species, {
+//                      "Krusty Combo": {
+//                      "leatherback turtle": 21,
+//                      "salmon": 48,
+//                      "seahorse": 93,
+//                      "coral": 7,
+//                      "giant clam": 42,
+//                      "gray whale": 19,
+//                      "sea lion": 93
+//                    },
+//                    "Krabby Pattie": {
+//                      "leatherback turtle": 99,
+//                      "salmon": 153,
+//                      "seahorse": 221,
+//                      "coral": 18,
+//                      "giant clam": 199,
+//                      "gray whale": 97,
+//                      "sea lion": 345
+//                    },
+//                    "Krusty Deluxe": {
+//                      "leatherback turtle": 35,
+//                      "salmon": 57,
+//                      "seahorse": 86,
+//                      "coral": 8,
+//                      "giant clam": 71,
+//                      "gray whale": 52,
+//                      "sea lion": 145
+//                    }
+//                });
+//                putdata(text); 
+//              }
+//            };
+//            
+//            req.open("GET", "https://api.jsonbin.io/b/5d2457b5f0c0927b3eb3aaa5", true);
+//            req.setRequestHeader("secret-key","$2a$10$1ctkNrItxvgZLpXGWT936uQt376TVgRrfv1lpu0/mdgDfHQhN3pa2");
+//            req.send();
+//            
+//            function putdata(dataobj){
+//                let req1 = new XMLHttpRequest();
+//            
+//                req1.onreadystatechange = () => {
+//                  if (req1.readyState == XMLHttpRequest.DONE) {
+//                    console.log(dataobj);
+//                  }
+//                };
+//
+//                req1.open("PUT", "https://api.jsonbin.io/b/5d2457b5f0c0927b3eb3aaa5", true);
+//                req1.setRequestHeader("Content-type", "application/json");
+//                req1.setRequestHeader("versioning","false");
+//                req1.setRequestHeader("secret-key","$2a$10$1ctkNrItxvgZLpXGWT936uQt376TVgRrfv1lpu0/mdgDfHQhN3pa2");
+//                req1.send(JSON.stringify(dataobj)); 
+//            }
+//    
+        </script>
+        
+        
+        <div id="charts">
+            <div id="barchart"></div>
+            <div id="piechart"></div>
+            <div id="columnchart"></div>
+            <div id="column1chart"></div>
+            <div id="column2chart"></div>
+            <div id="linechart"></div>
+            <div id="speciessales"></div>
+        </div>
+        
+        
+        <script>           
+            /*
+            function valid()
+            {
+                var users = 
+                [{
+                  id: 1,
+                  username: 'user1',
+                  password: 'a',
+                  type: 'user'
+                }, 
+                {
+                  id: 2,
+                  username: 'user2',
+                  password: 'b',
+                  type: 'admin'
+                }, 
+                {
+                  id: 3,
+                  username: 'user3',
+                  password: 'c',
+                  type: 'supplier'
+                },
+                {
+                  id: 4,
+                  username: 'supplier1',
+                  password: 'c',
+                  type: 'supplier'
+                },
+                {
+                  id: 5,
+                  username: 'supplier1',
+                  password: 'c',
+                  type: 'supplier'
+                }];
+
+                var usern = document.getElementById("username").value;
+                var pass = document.getElementById("password").value;
+                var logged = false;
+                
+                for (var index in users) {
+                  
+                  var user = users[index];
+
+                  
+                  if (usern == user.username && pass == user.password)
+                    logged = true;
+                }
+                
+                if(logged)
+                    alert("LOG IN");
+                else
+                    alert("ERROR");   
+            }
+            */
+        </script>
+        
+        <div id="div3">
+            <table id="example" class="display" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Transcription</th>
+                        <th>datetime</th>
+                        <th>burger</th>
+                        <th>species</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>Transcription</th>
+                        <th>datetime</th>
+                        <th>burger</th>
+                        <th>species</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </body>
+</html>
